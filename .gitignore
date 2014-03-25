@@ -3,4 +3,5 @@ env
 *.log
 *.pot
 *.pyc
+public
 sqlite3.db 

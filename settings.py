@@ -3,11 +3,8 @@ import os,sys
 gettext = lambda s: s
 
 PROJECT_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__)))
-PROJECT_ROOT = os.path.abspath(os.path.join(PROJECT_PATH))
-sys.path.insert(0, os.path.join(PROJECT_PATH, 'lib'))
 sys.path.insert(0, os.path.join(PROJECT_PATH, 'apps'))
 DEBUG = True
-print os.path.join(PROJECT_PATH, 'apps')
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -18,13 +15,13 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'starting_project',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'internet_start',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',
-        # 'OPTIONS': { "init_command": "SET storage_engine=INNODB",}
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {"init_command": "SET storage_engine=INNODB"}
     }
 }
 
@@ -59,7 +56,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'public', 'media')
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'public', 'media')
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
@@ -69,13 +66,14 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'public', 'static')
+STATIC_ROOT = os.path.join(PROJECT_PATH, 'public', 'static')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
 # Additional locations of static files
 STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, 'static'),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -115,6 +113,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.i18n',
     'django.core.context_processors.request',
     'django.core.context_processors.media',
+    'django.core.context_processors.static',
     'cms.context_processors.media',
 )
 ROOT_URLCONF = 'urls'
